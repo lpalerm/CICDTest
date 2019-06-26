@@ -17,12 +17,12 @@
         {
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2018-05-01",
-            "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
+            "name": "[parameters('RgName')]",
+            "location": "[parameters('Location')]",
             "tags": {
-                "Description": "[parameters('tags').Description]",
-                "Environment": "[parameters('tags').Environment]",
-                "RequestId": "[parameters('tags').RequestId]"
+                "Description": "[parameters('Tags').Description]",
+                "Environment": "[parameters('Tags').Environment]",
+                "RequestId": "[parameters('Tags').RequestId]"
             },
             "properties": {}
         }
