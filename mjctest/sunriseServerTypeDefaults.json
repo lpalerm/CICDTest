@@ -3,48 +3,64 @@
         "DescriptionSegment": "con",
         "Count": 2,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "sql",
         "Count": 3,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "hss",
         "Count": 2,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "elk",
         "Count": 2,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "rds",
         "Count": 3,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "prt",
         "Count": 1,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "cpm",
         "Count": 1,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     },
     {
         "DescriptionSegment": "ftp",
         "Count": 2,
         "VmSize": "Standard_B2s",
-        "Os": "2016-Datacenter"
+        "Sku": "2016-Datacenter"
+        "Publisher": "MicrosoftWindowsServer"
+        "Offer" = "WindowsServer"
     }
 ]
