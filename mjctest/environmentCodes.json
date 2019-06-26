@@ -1,0 +1,30 @@
+[
+    {
+        "Code": 0,
+        "Description": "Common"
+    },
+    {
+        "Code": 1,
+        "Description": "Production"
+    },
+    {
+        "Code": 2,
+        "Description": "Test"
+    },
+    {
+        "Code": 3,
+        "Description": "Training"
+    },
+    {
+        "Code": 4,
+        "Description": "Development"
+    },
+    {
+        "Code": 5,
+        "Description": "Staging"
+    },
+    {
+        "Code": 6,
+        "Description": "Certification"
+    }
+]
