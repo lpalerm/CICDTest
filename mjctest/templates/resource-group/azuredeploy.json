@@ -5,10 +5,10 @@
         "RgName": {
             "type": "string"
         },
-        "Location": {
+        "RgLocation": {
             "type": "string"
         },
-        "Tags": {
+        "RgTags": {
             "type": "array"
         }
     },
@@ -18,11 +18,11 @@
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2018-05-01",
             "name": "[parameters('RgName')]",
-            "location": "[parameters('Location')]",
+            "location": "[parameters('RgLocation')]",
             "tags": {
-                "Description": "[parameters('Tags').Description]",
-                "Environment": "[parameters('Tags').Environment]",
-                "RequestId": "[parameters('Tags').RequestId]"
+                "Description": "[parameters('RgTags').Description]",
+                "Environment": "[parameters('RgTags').Environment]",
+                "RequestId": "[parameters('RgTags').RequestId]"
             },
             "properties": {}
         }
