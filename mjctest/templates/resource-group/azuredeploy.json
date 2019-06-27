@@ -9,7 +9,7 @@
             "type": "string"
         },
         "RgTags": {
-            "type": "string"
+            "type": "object"
         }
     },
     "variables": {},
