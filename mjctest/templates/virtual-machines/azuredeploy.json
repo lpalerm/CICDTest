@@ -1,0 +1,192 @@
+"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "VmLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "VmName": {
+            "type": "string",
+            "maxLength": 15,
+            "metadata": {
+                "description": "Name of the virtual machine to be created"
+            }
+        },
+        "Size": {
+            "type": "string",
+            "metadata": {
+                "description": "Virtual Machine Size"
+            }
+        },
+        "Publisher": {
+            "type": "string",
+            "metadata": {
+                "description": "Image Publisher"
+            }
+        },
+        "Offer": {
+            "type": "string",
+            "metadata": {
+                "description": "Image Offer"
+            }
+        },
+        "Sku": {
+            "type": "string",
+            "metadata": {
+                "description": "Image SKU"
+            }
+        },
+        "AvailabilitySetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Availability Set Name where the VM will be placed"
+            }
+        },
+        "AdminUserName": {
+            "defaultValue": "Allscriptsadmin",
+            "type": "string",
+            "metadata": {
+                "description": "Administrator Username for the local admin account"
+            }
+        },
+        "AdminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Administrator password for the local admin account"
+            }
+        },
+        "FaultDomainCount": {
+            "type": "int",
+            "metadata": {
+                "description": "Fault domain count for availability set"
+            }
+        },
+        "UpdateDomainCount": {
+            "type": "int",
+            "metadata": {
+                "description": "Update domain count for availability set"
+            }
+        },
+        "SubnetId": {
+            "type": "string",
+            "metadata": {
+                "description": "ID of the subnet the NIC will connect to"
+            }
+        },
+        "VmTags": {
+            "type": "object",
+            "metadata": {
+                "description": "Tag values"
+            }
+        }
+    },
+    "variables": {
+        "NicId": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('VmName'), '-nic'))]",
+        "AvailabilitySetId": "if(greater(length(parameters('AvailabilitySetName')), 0), ",
+        "AvailabilitySetId": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
+        "NicName": "[concat(parameters('VmName'), '-nic')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "condition": "[greater(length(parameters('AvailabilitySetName')), 0)]",
+            "name": "[parameters('AvailabilitySetName')]",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('location')]",
+            "properties": {
+                "platformFaultDomainCount": "[parameters('FaultDomainCount')]",
+                "platformUpdateDomainCount": "[parameters('UpdateDomainCount')]"
+            },
+            "sku": {
+                "name": "Aligned"
+            },
+            "tags": {
+                "RequestId": "[parameters('VmTags').RequestId]",
+                "Description": "[parameters('VmTags').Description]",
+                "Environment": "[parameters('VmTags').Environment]"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('VmName')]",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('Location')]",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('Size')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[parameters('Publisher')]",
+                        "offer": "[parameters('Offer')]",
+                        "sku": "[parameters('Sku')]",
+                        "version": "Latest"
+                    },
+                    "osDisk": {
+                        "name": "[concat(parameters('VmName'), '-osdisk')]",
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS"
+                        },
+                        "caching": "ReadWrite"
+                    }
+                },
+                "osProfile": {
+                    "computerName": "[parameters('VmName')]",
+                    "adminUsername": "[parameters('AdminUserName')]",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('AdminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[variables('NicId')]"
+                        }
+                    ]
+                },
+                "availabilitySet": {
+                    "id": "[variables('AvailabilitySetId')]"
+                }
+            },
+            "tags": {
+                "RequestId": "[parameters('VmTags').RequestId]",
+                "Description": "[parameters('VmTags').Description]",
+                "Environment": "[parameters('VmTags').Environment]"
+            },
+            "dependsOn": [
+                "[variables('AvailabilitySetId')]",
+                "[variables('NicId')]"
+            ]
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('NicName')]",
+            "apiVersion": "2016-03-30",
+            "location": "[parameters('location')]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[parameters ('SubnetId')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "dependsOn": []
+        }
+    ],
+    "outputs": {}
+}
